@@ -2,7 +2,8 @@
 #define PUNTO1_H
 
 #include <string>
-#include <vector>
+
+#define MAX_PRODUCTOS 100
 
 class Producto {
 public:
@@ -14,6 +15,9 @@ public:
     int getPrecio();
     int getDescuento();
     int getCantidad();
+    void setPrecio(int precio);
+    void setDescuento(int descuento);
+    void setCantidad(int cantidad);
 
     virtual std::string getDetalles() = 0;
 
@@ -62,8 +66,8 @@ public:
     void realizarCompra(std::string nombre, int cantidad);
 
 private:
-    std::vector<Producto*> inventario;
+    Producto* inventario[MAX_PRODUCTOS];
+    int numProductos;
 };
 
 #endif // PUNTO1_H
-
