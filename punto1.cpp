@@ -51,10 +51,10 @@ void Punto1::agregarProducto(Producto* producto) {
 void Punto1::modificarProducto(std::string nombre, int nuevoPrecio, int nuevoDescuento) {
     for (int i = 0; i < numProductos; i++) {
         if (inventario[i]->getNombre() == nombre) {
-            std::cout << "Información anterior del producto: " << inventario[i]->getDetalles() << "\n";
+            std::cout << "Informacion anterior del producto: " << inventario[i]->getDetalles() << "\n";
             inventario[i]->setPrecio(nuevoPrecio);
             inventario[i]->setDescuento(nuevoDescuento);
-            std::cout << "Información actualizada del producto: " << inventario[i]->getDetalles() << "\n";
+            std::cout << "Informacion actualizada del producto: " << inventario[i]->getDetalles() << "\n";
             break;
         }
     }
@@ -78,4 +78,15 @@ void Punto1::realizarCompra(std::string nombre, int cantidad) {
             break;
         }
     }
+}
+
+Producto* Punto1::getProducto(int index) {
+    if (index >= 0 && index < numProductos) {
+        return inventario[index];
+    }
+    return nullptr;
+}
+
+int Punto1::getNumProductos() {
+    return numProductos;
 }

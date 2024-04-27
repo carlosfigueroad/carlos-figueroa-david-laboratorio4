@@ -64,6 +64,8 @@ public:
     void agregarProducto(Producto* producto);
     void modificarProducto(std::string nombre, int nuevoPrecio, int nuevoDescuento);
     void realizarCompra(std::string nombre, int cantidad);
+    Producto* getProducto(int index);
+    int getNumProductos();
 
 private:
     Producto* inventario[MAX_PRODUCTOS];
