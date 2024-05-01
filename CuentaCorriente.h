@@ -5,7 +5,7 @@
 
 class CuentaCorriente {
 public:
-    CuentaCorriente(std::string id, std::string password = "12345");
+    CuentaCorriente(std::string id, std::string password);
     std::string getId() const;
     std::string getPassword() const;
     void setPassword(std::string newPassword);

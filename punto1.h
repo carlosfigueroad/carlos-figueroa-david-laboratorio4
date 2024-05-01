@@ -33,7 +33,6 @@ class Comestible : public Producto {
 public:
     Comestible(std::string nombre, std::string marca, int precio, int descuento, int cantidad, std::string fechaVencimiento);
     std::string getDetalles() override;
-
 private:
     std::string fechaVencimiento;
 };

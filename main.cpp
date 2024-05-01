@@ -1,5 +1,4 @@
 #include <iostream>
-#include <fstream>
 #include <vector>
 #include <sstream>
 #include "CuentaCorriente.h"
@@ -14,32 +13,6 @@ std::vector<std::string> split(const std::string& str, char delim) {
         tokens.push_back(token);
     }
     return tokens;
-}
-
-// Función para cargar cuentas desde el archivo
-std::vector<CuentaCorriente> cargarCuentasDesdeArchivo() {
-    std::vector<CuentaCorriente> cuentas;
-    std::ifstream inFile("database.txt");
-    std::string line;
-    while (getline(inFile, line)) {
-        auto tokens = split(line, ',');
-        if (tokens.size() == 2) {
-            CuentaCorriente cuenta(tokens[0], tokens[1]);
-            cuentas.push_back(cuenta);
-        }
-    }
-    inFile.close();
-    return cuentas;
-}
-
-// Función para guardar cuentas en el archivo
-void guardarCuentasEnArchivo(const std::vector<CuentaCorriente>& cuentas) {
-    std::ofstream outFile("database.txt");
-    for (const auto& cuenta : cuentas) {
-        outFile << cuenta.getId() << ","
-                << cuenta.getPassword() << "\n";
-    }
-    outFile.close();
 }
 
 // Función para encontrar una cuenta por ID
@@ -67,10 +40,33 @@ void mostrarCategorias() {
 }
 
 int main() {
-    std::vector<CuentaCorriente> cuentas = cargarCuentasDesdeArchivo();
+    // Crear un vector para almacenar cuentas
+    std::vector<CuentaCorriente> cuentas;
+
+
+    cuentas.push_back(CuentaCorriente("12345", "Toby123"));
+    cuentas.push_back(CuentaCorriente("67890", "Bella456"));
+    cuentas.push_back(CuentaCorriente("11121", "Max789"));
+    cuentas.push_back(CuentaCorriente("31415", "Lucy159"));
+    cuentas.push_back(CuentaCorriente("92653", "Charlie265"));
+    cuentas.push_back(CuentaCorriente("58979", "Daisy358"));
+    cuentas.push_back(CuentaCorriente("32384", "Buddy979"));
+    cuentas.push_back(CuentaCorriente("62643", "Molly323"));
+    cuentas.push_back(CuentaCorriente("38327", "Rocky626"));
+    cuentas.push_back(CuentaCorriente("95028", "Zoe383"));
+    cuentas.push_back(CuentaCorriente("84197", "Cooper950"));
+    cuentas.push_back(CuentaCorriente("16939", "Lola841"));
+    cuentas.push_back(CuentaCorriente("93751", "Bear169"));
+    cuentas.push_back(CuentaCorriente("58209", "Oliver937"));
+    cuentas.push_back(CuentaCorriente("74944", "Chloe582"));
+    cuentas.push_back(CuentaCorriente("59230", "Winston749"));
+    cuentas.push_back(CuentaCorriente("78164", "Lily592"));
+    cuentas.push_back(CuentaCorriente("06286", "Ziggy781"));
+    cuentas.push_back(CuentaCorriente("20899", "Milo062"));
+    cuentas.push_back(CuentaCorriente("86280", "Daisy208"));
+
     Punto1 punto1;
 
-    // Agregar algunos productos de ejemplo al inventario
     punto1.agregarProducto(new Comestible("Pan", "Bimbo", 2500, 10, 50, "12-2024"));
     punto1.agregarProducto(new Comestible("Leche", "Alpina", 2800, 15, 30, "01-2025"));
     punto1.agregarProducto(new Comestible("Queso", "Alpina", 3200, 10, 40, "01-2025"));
@@ -95,6 +91,7 @@ int main() {
     punto1.agregarProducto(new Aseo("Jabon", "Protex", 3300, 5, 100, "Glicerina"));
 
 
+
     int opcion = 0;
     do {
         std::cout << "************************************\n";
@@ -106,7 +103,6 @@ int main() {
         std::cout << "* 5. Salir                         *\n";
         std::cout << "************************************\n";
         std::cin >> opcion;
-
         switch (opcion) {
             case 1: {
                 std::string nombre, marca, tipo;
@@ -164,63 +160,62 @@ int main() {
                 }
                 break;
             }
-        case 3: {
-            std::string id, password;
-            std::cout << "Introduce tu numero de identificacion: ";
-            std::cin >> id;
-            std::cout << "Introduce tu contraseña: ";
-            std::cin >> password;
-            CuentaCorriente* cuenta = encontrarCuentaPorId(cuentas, id);
-            if (cuenta && cuenta->validarCuenta(id, password)) {
-                mostrarCategorias();
-                int categoria;
-                std::cin >> categoria;
-                std::cout << "Estos son los productos disponibles en la categoria seleccionada:\n";
-                for (int i = 0; i < punto1.getNumProductos(); i++) {
-                    if ((categoria == 1 && dynamic_cast<Comestible*>(punto1.getProducto(i))) ||
-                        (categoria == 2 && dynamic_cast<Electronico*>(punto1.getProducto(i))) ||
-                        (categoria == 3 && dynamic_cast<Aseo*>(punto1.getProducto(i)))) {
-                        std::cout << punto1.getProducto(i)->getNombre() << ": " << punto1.getProducto(i)->getPrecio() << "\n";
+            case 3: {
+                std::string id, password;
+                std::cout << "Introduce tu numero de identificacion: ";
+                std::cin >> id;
+                std::cout << "Introduce tu contraseña: ";
+                std::cin >> password;
+                CuentaCorriente* cuenta = encontrarCuentaPorId(cuentas, id);
+                if (cuenta && cuenta->validarCuenta(id, password)) {
+                    mostrarCategorias();
+                    int categoria;
+                    std::cin >> categoria;
+                    std::cout << "Estos son los productos disponibles en la categoria seleccionada:\n";
+                    for (int i = 0; i < punto1.getNumProductos(); i++) {
+                        if ((categoria == 1 && dynamic_cast<Comestible*>(punto1.getProducto(i))) ||
+                            (categoria == 2 && dynamic_cast<Electronico*>(punto1.getProducto(i))) ||
+                            (categoria == 3 && dynamic_cast<Aseo*>(punto1.getProducto(i)))) {
+                                std::cout << punto1.getProducto(i)->getNombre() << ": " << punto1.getProducto(i)->getPrecio() << "\n";
+                            }
                     }
+                        std::string nombre;
+                        int cantidad;
+                        std::cout << "Introduce el nombre del producto a comprar: ";
+                        std::cin >> nombre;
+                        std::cout << "Introduce la cantidad del producto a comprar: ";
+                        std::cin >> cantidad;
+                        punto1.realizarCompra(nombre, cantidad);
+                    } else {
+                        std::cout << "No se pudo validar la cuenta. Por favor, intenta de nuevo.\n";
+                    }
+                    break;
                 }
-                std::string nombre;
-                int cantidad;
-                std::cout << "Introduce el nombre del producto a comprar: ";
-                std::cin >> nombre;
-                std::cout << "Introduce la cantidad del producto a comprar: ";
-                std::cin >> cantidad;
-                punto1.realizarCompra(nombre, cantidad);
-            } else {
-                std::cout << "No se pudo validar la cuenta. Por favor, intenta de nuevo.\n";
-            }
-            break;
-        }
-        case 4: {
-            std::string id, oldPassword, newPassword;
-            std::cout << "Introduce tu numero de identificacion: ";
-            std::cin >> id;
-            CuentaCorriente* cuenta = encontrarCuentaPorId(cuentas, id);
-            if (cuenta) {
-                std::cout << "Introduce tu contraseña actual: ";
-                std::cin >> oldPassword;
-                if (cuenta->validarCuenta(id, oldPassword)) {
-                    std::cout << "Introduce tu nueva contraseña: ";
-                    std::cin >> newPassword;
-                    cambiarContrasenaCuenta(*cuenta, newPassword);
-                    guardarCuentasEnArchivo(cuentas);
-                    std::cout << "Contraseña cambiada exitosamente.\n";
-                } else {
-                    std::cout << "Contraseña incorrecta.\n";
+                case 4: {
+                    std::string id, oldPassword, newPassword;
+                    std::cout << "Introduce tu numero de identificacion: ";
+                    std::cin >> id;
+                    CuentaCorriente* cuenta = encontrarCuentaPorId(cuentas, id);
+                    if (cuenta) {
+                        std::cout << "Introduce tu contraseña actual: ";
+                        std::cin >> oldPassword;
+                        if (cuenta->validarCuenta(id, oldPassword)) {
+                            std::cout << "Introduce tu nueva contraseña: ";
+                            std::cin >> newPassword;
+                            cambiarContrasenaCuenta(*cuenta, newPassword);
+                            std::cout << "Contraseña cambiada exitosamente.\n";
+                        } else {
+                            std::cout << "Contraseña incorrecta.\n";
+                        }
+                    } else {
+                        std::cout << "No se encontro una cuenta con ese número de identificacion.\n";
+                    }
+                    break;
                 }
-            } else {
-                std::cout << "No se encontro una cuenta con ese número de identificacion.\n";
             }
-            break;
-        }
-    }
-} while (opcion != 5);
+        } while (opcion != 5);
 
-std::cout << "Gracias por usar nuestra aplicacion. ¡Hasta luego!\n";
-return 0;
-}
+        std::cout << "Gracias por usar mi programa. ¡Hasta luego!\n";
+        return 0;
+    }
 

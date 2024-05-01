@@ -30,7 +30,9 @@ std::string Comestible::getDetalles() { return "Comestible: " + getNombre() + ",
 Electronico::Electronico(std::string nombre, std::string marca, int precio, int descuento, int cantidad, int garantia)
     : Producto(nombre, marca, precio, descuento, cantidad), garantia(garantia) {}
 
-std::string Electronico::getDetalles() { return "Electronico: " + getNombre() + ", " + getMarca() + ", " + std::to_string(getPrecio()) + ", " + std::to_string(getDescuento()) + ", " + std::to_string(getCantidad()) + ", " + std::to_string(garantia); }
+std::string Electronico::getDetalles() {
+    return "Electronico: " + getNombre() + ", " + getMarca() + ", " + std::to_string(getPrecio()) + ", " + std::to_string(getDescuento()) + ", " + std::to_string(getCantidad()) + ", " + std::to_string(garantia);
+}
 
 Aseo::Aseo(std::string nombre, std::string marca, int precio, int descuento, int cantidad, std::string material)
     : Producto(nombre, marca, precio, descuento, cantidad), material(material) {}
